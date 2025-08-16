@@ -1,0 +1,148 @@
+Machine Learning:
+
+Cell 1:
+import sklearn
+import pandas as pd
+df = pd.read_excel("data.xlsx")
+df.head()
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, ConfusionMatrixDisplay
+
+Cell 2:
+# Converts xlsx to dataframe
+df = pd.read_excel(r"C:\Users\James Adrian Castro\Documents\KNN\data.xlsx")
+df.head()
+
+Cell 3:
+df.info()
+
+Cell 4:
+df.describe()
+
+Cell 5:
+df.value_counts()
+
+Cell 6:
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Example: Load your dataset
+# Replace 'your_dataset.csv' with your actual dataset file
+# df = pd.read_csv("your_dataset.csv")
+df = pd.read_excel(r"C:\Users\James Adrian Castro\Documents\KNN\data.xlsx")
+# Use the correct column name for followers/friends
+followers = df[1400]
+
+# Plot histogram
+plt.figure(figsize=(8, 6))
+plt.hist(followers, bins=30, edgecolor='black')
+plt.xlabel("Number of Followers/Friends")
+plt.ylabel("Number of Samples")
+plt.title("Histogram of Followers per Sample")
+plt.show()
+
+
+Cell 7:
+df = df.drop(columns=['Joshua'])
+df.head()
+
+Cell 8: 
+X = df.values
+
+Cell 9:
+y = df.iloc[:, -1].values
+
+Cell 10:
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+Cell 11:
+print("df shape:", df.shape)
+print("X shape:", X.shape)
+print("y shape:", y.shape)
+
+Cell 12:
+knn = KNeighborsClassifier(n_neighbors=13)
+
+Cell 13:
+knn.fit(X_train, y_train)
+
+Cell 14:
+from sklearn.neighbors import KNeighborsClassifier
+
+# Example KNN classifier
+knn = KNeighborsClassifier(n_neighbors=5)
+
+# Fit the model on your training data
+knn.fit(X_train, y_train)
+
+# Now you can predict
+y_pred = knn.predict(X_test)
+
+
+Cell 15:
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
+# Load your dataframe
+# df = pd.read_csv("your_file.csv")  # if from file
+
+# Assuming your dataset looks like the snippet:
+# First column = names (string), others = numeric features
+# The variables X and y are already defined in previous cells and contain the correct data.
+# No need to redefine them here.
+
+# Train-test split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Initialize and fit the KNN model
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train, y_train)
+
+# Predict
+y_pred = knn.predict(X_test)
+
+# Confusion matrix
+conf_matrix = confusion_matrix(y_test, y_pred, labels=knn.classes_)
+disp = ConfusionMatrixDisplay(confusion_matrix=conf_matrix,
+                              display_labels=knn.classes_)
+disp.plot()
+
+Cell 15:
+
+from sklearn.metrics import accuracy_score
+
+accuracy = accuracy_score(y_test, y_pred)
+print("Accuracy:", accuracy)
+
+Cell 16:
+from sklearn.metrics import precision_score
+
+precision = precision_score(y_test, y_pred)
+print("Precision:", precision)
+
+
+Cell 17:
+from sklearn.metrics import recall_score
+
+recall = recall_score(y_test, y_pred)
+print("Recall:", recall)
+
+Cell 18:
+from sklearn.metrics import f1_score
+
+f1 = f1_score(y_test, y_pred)
+print("F1-score:", f1)
+
+
+Cell 19:
+# Example: Replace with your own features
+my_features = np.array([[0, 1, 1, 500, 1]])  # shape must be (1, 5)
+my_prediction = knn.predict(my_features)
+print("Predicted personality:", "extrovert" if my_prediction[0] == 1 else "introvert")
